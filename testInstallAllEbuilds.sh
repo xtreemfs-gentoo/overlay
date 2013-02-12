@@ -11,7 +11,7 @@ CID=101
 CONTNAME="funtoo-current-generic_32-openvz-latest"
 VEXEC="vzctl exec ${CID} "
 #STABLE="1.4"
-REVLIST=$(ls gentoo-overlay/net-fs/xtreemfs/*.ebuild | cut -d/ -f4 | sed -e 's/\.ebuild$//g;')
+REVLIST=$(ls net-fs/xtreemfs/*.ebuild | cut -d/ -f3 | sed -e 's/\.ebuild$//g;')
 MNTDIR="/mnt/temp"
 SUCCESS=
 
