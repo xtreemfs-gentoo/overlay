@@ -3,14 +3,14 @@
 # $Header: $
 
 EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
+
+inherit java-pkg-2 java-ant-2 git
+
 if [[ ${PV} == "9999" ]] ; then
-  inherit java-pkg-2 java-ant-2 git
   EGIT_BRANCH="master"
 elif [[ ${PV} == "8888_beta" ]] ; then
-  inherit java-pkg-2 java-ant-2 git
   EGIT_BRANCH="releases/XtreemFS-unstable"
 else
-  inherit java-pkg-2 java-ant-2 git
   EGIT_BRANCH="releases/XtreemFS-1.4.0"
 fi
 
