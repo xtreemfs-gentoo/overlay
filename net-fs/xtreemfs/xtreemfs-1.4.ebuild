@@ -1,28 +1,21 @@
 # Copyright 1999-2007 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
+# Distributed under the terms of the GNU General Public License v2 
 # $Header: $
 
-
-
-# Use XTREEMFS_ESVN_REPO_URI to track a different branch
-ESVN_REPO_URI=${XTREEMFS_ESVN_REPO_URI:-http://xtreemfs.googlecode.com/svn/trunk/}
-ESVN_PROJECT=${ESVN_REPO_URI##*/svnroot/}
-ESVN_PROJECT=${ESVN_PROJECT%/*}
+EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
 if [[ ${PV} == "9999" ]] ; then
-  inherit java-pkg-2 java-ant-2 subversion
+  inherit java-pkg-2 java-ant-2 git
+  EGIT_BRANCH="master"
+elif [[ ${PV} == "8888_beta" ]] ; then
+  inherit java-pkg-2 java-ant-2 git
+  EGIT_BRANCH="releases/XtreemFS-unstable"
 else
-  inherit java-pkg-2 java-ant-2
-  SRC_URI="http://xtreemfs.googlecode.com/files/XtreemFS-${PV}.tar.gz"
+  inherit java-pkg-2 java-ant-2 git
+  EGIT_BRANCH="releases/XtreemFS-1.4.0"
 fi
-
 
 DESCRIPTION="XtreemFS is a distributed and replicated file system for the Internet"
 HOMEPAGE="http://www.xtreemfs.org"
-
-
-LICENSE="BSD"
-SLOT="0"
-IUSE=""
 
 LICENSE="BSD"
 SLOT="0"
@@ -35,6 +28,7 @@ DEPEND=">=virtual/jdk-1.6.0
   sys-fs/e2fsprogs
   dev-java/ant-core
   sys-apps/attr
+  sys-devel/automake
   >=dev-libs/boost-1.39.0"
 RDEPEND="${DEPEND}"
 
@@ -43,6 +37,7 @@ S="${WORKDIR}"/XtreemFS-${PV}/
 pkg_setup() {
   enewuser xtreemfs -1 -1 /var/lib/xtreemfs
 }
+
 src_compile() {
   export LANG=en_US.utf8
   export LC_ALL=${LANG}

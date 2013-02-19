@@ -14,14 +14,8 @@ else
   EGIT_BRANCH="releases/XtreemFS-1.4.0"
 fi
 
-
 DESCRIPTION="XtreemFS is a distributed and replicated file system for the Internet"
 HOMEPAGE="http://www.xtreemfs.org"
-
-
-LICENSE="BSD"
-SLOT="0"
-IUSE=""
 
 LICENSE="BSD"
 SLOT="0"
