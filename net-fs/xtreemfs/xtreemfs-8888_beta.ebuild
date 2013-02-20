@@ -22,14 +22,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=virtual/jdk-1.6.0
-  >=dev-util/cmake-2.6
+DEPEND="
+  >=sys-devel/gcc-4.1.2
+  >=dev-libs/boost-1.39.0
   sys-fs/fuse
+  >=dev-libs/openssl-1.0.0j
+  >=dev-util/cmake-2.6
+  sys-devel/make
+  >=virtual/jdk-1.6.0
+  >=dev-java/ant-1.7.1
   sys-fs/e2fsprogs
-  dev-java/ant-core
-  sys-apps/attr
-  sys-devel/automake
-  >=dev-libs/boost-1.39.0"
+  sys-apps/attr"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
