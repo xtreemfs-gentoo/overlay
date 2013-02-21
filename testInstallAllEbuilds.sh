@@ -49,15 +49,15 @@ for revision in ${REVLIST}; do
 	vzctl set ${CID} --diskspace 8G:10G  --save
 	vzctl set ${CID} --diskinodes 700000:1000000 --save
 	vzctl set ${CID} --ram 512M --save
-	vzctl set ${CID} --swappages=100:100 --save
+	vzctl set ${CID} --swappages=0:1024M --save
 	vzctl set ${CID} --privvmpages 165000:165000 --save
 	vzctl set ${CID} --devnodes fuse:rw --save
 	vzctl set ${CID} --netif_add eth0,,,,br0 --save
 	vzctl start ${CID}
-	sleep 20
+	sleep 30
 
 	${VEXEC} '/etc/init.d/dhcpcd start'
-	sleep 20
+	sleep 10
 	${VEXEC} 'emerge --sync && emerge -uDN world'
 	${VEXEC} 'USE="git" emerge layman'
 	${VEXEC} 'layman -L && layman -a xtreemfs'
