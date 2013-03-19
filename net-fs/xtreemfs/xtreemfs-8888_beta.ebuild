@@ -28,7 +28,8 @@ DEPEND=">=virtual/jdk-1.6.0
   sys-fs/e2fsprogs
   dev-java/ant-core
   sys-apps/attr
-  >=dev-libs/boost-1.39.0"
+  >=dev-libs/boost-1.39.0
+  sys-devel/automake"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
