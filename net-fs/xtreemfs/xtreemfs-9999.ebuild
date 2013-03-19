@@ -4,7 +4,7 @@
 
 EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
 
-inherit java-pkg-2 java-ant-2 git
+inherit java-pkg-2 java-ant-2 git-2
 
 if [[ ${PV} == "9999" ]] ; then
   EGIT_BRANCH="master"
@@ -22,17 +22,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-  >=sys-devel/gcc-4.1.2
-  >=dev-libs/boost-1.39.0
-  sys-fs/fuse
-  >=dev-libs/openssl-1.0.0j
+DEPEND=">=virtual/jdk-1.6.0
   >=dev-util/cmake-2.6
-  sys-devel/make
-  >=virtual/jdk-1.6.0
-  >=dev-java/ant-1.7.1
+  sys-fs/fuse
   sys-fs/e2fsprogs
-  sys-apps/attr"
+  dev-java/ant-core
+  sys-apps/attr
+  >=dev-libs/boost-1.39.0"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
@@ -50,41 +46,40 @@ src_compile() {
 src_install() {
   insinto /etc/xtreemfs/
   doins "${S}"/etc/xos/xtreemfs/*.properties
-
+ 
   insinto /etc/xtreemfs/server-repl-plugin/
   doins "${S}"contrib/server-repl-plugin/config/dir.properties
   doins "${S}"contrib/server-repl-plugin/config/mrc.properties
-
+ 
   keepdir /var/log/xtreemfs/ /var/run/xtreemfs/
-
+ 
   into /usr/
   dobin "${S}"/bin/*
   doman "${S}"/man/man1/*
-
+ 
   for service in dir mrc osd; do
     newinitd "${FILESDIR}"/xtreemfs-${service}.initd xtreemfs-${service}
     newconfd "${FILESDIR}"/xtreemfs-${service}.confd xtreemfs-${service}
   done
-
+ 
   java-pkg_jarinto /usr/share/${PN}/java/servers/dist
   java-pkg_dojar java/servers/dist/XtreemFS.jar
-
+ 
   java-pkg_jarinto /usr/share/${PN}/java/lib
   java-pkg_dojar java/lib/protobuf-java-2.3.0.jar java/lib/BabuDB.jar java/lib/commons-codec-1.3.jar java/lib/jdmktk.jar java/lib/jdmkrt.jar
-
+ 
   java-pkg_jarinto /usr/share/${PN}/java/foundation/dist
   java-pkg_dojar java/foundation/dist/Foundation.jar
-
+ 
   java-pkg_jarinto /usr/share/${PN}/java/flease/dist
   java-pkg_dojar java/flease/dist/Flease.jar
-
+ 
   java-pkg_jarinto /usr/share/${PN}/server-repl-plugin/
-  java-pkg_dojar contrib/server-repl-plugin/replication.jar
-
+  java-pkg_dojar contrib/server-repl-plugin/BabuDB_replication_plugin.jar
+ 
   # Set the XTREEMFS environment variable
   echo -n "XTREEMFS=/usr/share/${PN}" > "${T}/90xtreemfs"
   doenvd "${T}/90xtreemfs"
-
 }
 
 pkg_preinst() {
@@ -93,7 +88,8 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-        ${S}/packaging/generate_uuid /etc/xtreemfs/dirconfig.properties
-        ${S}/packaging/generate_uuid /etc/xtreemfs/mrcconfig.properties
-        ${S}/packaging/generate_uuid /etc/xtreemfs/osdconfig.properties
+  ${S}/packaging/generate_uuid /etc/xtreemfs/dirconfig.properties
+  ${S}/packaging/generate_uuid /etc/xtreemfs/mrcconfig.properties
+  ${S}/packaging/generate_uuid /etc/xtreemfs/osdconfig.properties 
 }
+
