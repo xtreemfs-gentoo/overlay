@@ -4,7 +4,7 @@
 
 EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
 
-inherit java-pkg-2 java-ant-2 git
+inherit java-pkg-2 java-ant-2 git-2
 
 if [[ ${PV} == "9999" ]] ; then
   EGIT_BRANCH="master"
@@ -22,17 +22,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-  >=sys-devel/gcc-4.1.2
-  >=dev-libs/boost-1.39.0
-  sys-fs/fuse
-  >=dev-libs/openssl-1.0.0j
+DEPEND=">=virtual/jdk-1.6.0
   >=dev-util/cmake-2.6
-  sys-devel/make
-  >=virtual/jdk-1.6.0
-  >=dev-java/ant-1.7.1
+  sys-fs/fuse
   sys-fs/e2fsprogs
-  sys-apps/attr"
+  dev-java/ant-core
+  sys-apps/attr
+  >=dev-libs/boost-1.39.0"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
@@ -84,7 +80,6 @@ src_install() {
   # Set the XTREEMFS environment variable
   echo -n "XTREEMFS=/usr/share/${PN}" > "${T}/90xtreemfs"
   doenvd "${T}/90xtreemfs"
- 
 }
 
 pkg_preinst() {
@@ -93,9 +88,8 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-        ${S}/packaging/generate_uuid /etc/xtreemfs/dirconfig.properties
-        ${S}/packaging/generate_uuid /etc/xtreemfs/mrcconfig.properties
-        ${S}/packaging/generate_uuid /etc/xtreemfs/osdconfig.properties
- 
+  ${S}/packaging/generate_uuid /etc/xtreemfs/dirconfig.properties
+  ${S}/packaging/generate_uuid /etc/xtreemfs/mrcconfig.properties
+  ${S}/packaging/generate_uuid /etc/xtreemfs/osdconfig.properties 
 }
 
