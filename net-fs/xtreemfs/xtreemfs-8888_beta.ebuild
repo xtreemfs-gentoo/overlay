@@ -29,7 +29,7 @@ DEPEND=">=virtual/jdk-1.6.0
   dev-java/ant-core
   sys-apps/attr
   >=dev-libs/boost-1.39.0
-  sys-devel/automake"
+  =sys-devel/automake-1.11.6"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
@@ -67,7 +67,7 @@ src_install() {
   java-pkg_dojar java/servers/dist/XtreemFS.jar
  
   java-pkg_jarinto /usr/share/${PN}/java/lib
-  java-pkg_dojar java/lib/protobuf-java-2.3.0.jar java/lib/BabuDB.jar java/lib/commons-codec-1.3.jar java/lib/jdmktk.jar java/lib/jdmkrt.jar
+  java-pkg_dojar java/lib/protobuf-java-2.5.0.jar java/lib/BabuDB.jar java/lib/commons-codec-1.3.jar java/lib/jdmktk.jar java/lib/jdmkrt.jar
  
   java-pkg_jarinto /usr/share/${PN}/java/foundation/dist
   java-pkg_dojar java/foundation/dist/Foundation.jar
