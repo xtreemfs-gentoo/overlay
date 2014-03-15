@@ -4,15 +4,10 @@
 
 EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
 
-inherit java-pkg-2 java-ant-2 git-2
+inherit java-pkg-2 java-ant-2 git-2 user
 
-if [[ ${PV} == "9999" ]] ; then
-  EGIT_BRANCH="master"
-elif [[ ${PV} == "8888_beta" ]] ; then
-  EGIT_BRANCH="releases/XtreemFS-unstable"
-else
-  EGIT_BRANCH="releases/XtreemFS-1.4.0"
-fi
+EGIT_BRANCH="master"
+EGIT_COMMIT="1.5"
 
 DESCRIPTION="XtreemFS is a distributed and replicated file system for the Internet"
 HOMEPAGE="http://www.xtreemfs.org"
@@ -29,13 +24,14 @@ DEPEND=">=virtual/jdk-1.6.0
   dev-java/ant-core
   sys-apps/attr
   >=dev-libs/boost-1.39.0
-  =sys-devel/automake-1.11.6"
+  sys-devel/automake"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/XtreemFS-${PV}/
 
 pkg_setup() {
-  enewuser xtreemfs -1 -1 /var/lib/xtreemfs
+  enewgroup xtreemfs
+  enewuser xtreemfs -1 -1 /var/lib/xtreemfs xtreemfs
 }
 
 src_compile() {

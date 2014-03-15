@@ -4,15 +4,10 @@
 
 EGIT_REPO_URI=${XTREEMFS_EGIT_REPO_URI:-https://code.google.com/p/xtreemfs/}
 
-inherit java-pkg-2 java-ant-2 git-2
+inherit java-pkg-2 java-ant-2 git-2 user
 
-if [[ ${PV} == "9999" ]] ; then
-  EGIT_BRANCH="master"
-elif [[ ${PV} == "8888_beta" ]] ; then
-  EGIT_BRANCH="releases/XtreemFS-unstable"
-else
-  EGIT_BRANCH="releases/XtreemFS-1.4.0"
-fi
+EGIT_BRANCH="master"
+EGIT_COMMIT="1.4"
 
 DESCRIPTION="XtreemFS is a distributed and replicated file system for the Internet"
 HOMEPAGE="http://www.xtreemfs.org"
@@ -35,7 +30,8 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}"/XtreemFS-${PV}/
 
 pkg_setup() {
-  enewuser xtreemfs -1 -1 /var/lib/xtreemfs
+  enewgroup xtreemfs
+  enewuser xtreemfs -1 -1 /var/lib/xtreemfs xtreemfs
 }
 
 src_compile() {
@@ -67,7 +63,7 @@ src_install() {
   java-pkg_dojar java/servers/dist/XtreemFS.jar
  
   java-pkg_jarinto /usr/share/${PN}/java/lib
-  java-pkg_dojar java/lib/protobuf-java-2.3.0.jar java/lib/BabuDB.jar java/lib/commons-codec-1.3.jar java/lib/jdmktk.jar java/lib/jdmkrt.jar
+  java-pkg_dojar java/lib/protobuf-java-2.5.0.jar java/lib/BabuDB.jar java/lib/commons-codec-1.3.jar java/lib/jdmktk.jar java/lib/jdmkrt.jar
  
   java-pkg_jarinto /usr/share/${PN}/java/foundation/dist
   java-pkg_dojar java/foundation/dist/Foundation.jar
