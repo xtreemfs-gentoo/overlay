@@ -24,7 +24,7 @@ DEPEND=">=virtual/jdk-1.6.0
   dev-java/ant-core
   sys-apps/attr
   >=dev-libs/boost-1.39.0
-  =sys-devel/automake-1.11.6"
+  sys-devel/automake"
 
 RDEPEND="${DEPEND}"
 
