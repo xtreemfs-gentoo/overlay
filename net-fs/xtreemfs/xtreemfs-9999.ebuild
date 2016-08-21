@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2 
 # $Header: $
 
-EGIT_REPO_URI="git://github.com/xtreemfs-gentoo/overlay https://github.com/xtreemfs-gentoo/overlay"
+EAPI=5
 
 inherit java-pkg-2 java-ant-2 git-2 user
+
+EGIT_REPO_URI="git://github.com/xtreemfs/xtreemfs https://github.com/xtreemfs/xtreemfs"
 
 EGIT_BRANCH="master"
 
