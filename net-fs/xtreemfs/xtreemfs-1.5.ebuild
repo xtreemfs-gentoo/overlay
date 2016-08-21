@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2 
 # $Header: $
 
-EGIT_REPO_URI="git://github.com/xtreemfs-gentoo/overlay https://github.com/xtreemfs-gentoo/overlay"
+EGIT_REPO_URI=${git://github.com/xtreemfs/xtreemfs https://github.com/xtreemfs/xtreemfs}
 
 inherit java-pkg-2 java-ant-2 git-2 user
 
-EGIT_BRANCH="master"
-EGIT_COMMIT="1.5"
+EGIT_BRANCH="releases/XtreemFS-1.5.1"
 
 DESCRIPTION="XtreemFS is a distributed and replicated file system for the Internet"
 HOMEPAGE="http://www.xtreemfs.org"
